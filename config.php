@@ -1,16 +1,17 @@
 <?php
-/* Database credentials. Assuming you are running MySQL
-server with default setting (user 'root' with no password) */
-define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
-define('DB_NAME', 'X33577055');
+/* Database credentials */
+    $host = "localhost";
+    $dbuser = "root";
+    $dbpass = "";
+    $dbase = "X33577055";
+    error_log("test error");
  
 /* Attempt to connect to MySQL database */
-$db = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+$conn = mysqli_connect($host,$dbuser,$dbpass,$dbase);
+
  
 // Check connection
-if($db === false){
+if($conn === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 ?>
