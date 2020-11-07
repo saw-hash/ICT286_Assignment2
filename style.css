@@ -67,3 +67,22 @@ form, .content {
 	border: 1px solid #3c763d;
 	margin-bottom: 20px;
 }
+
+
+/*   */
+
+
+
+
+
+@media screen and (min-width:761px){
+    body{
+    background-color:;
+}
+    
+    .content {width: 100%;}
+    form { flex-wrap: wrap;}
+}
+  
+
+
