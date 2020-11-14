@@ -1,20 +1,26 @@
 <?php 
+
 	session_start();
 
-/*	// variable declaration
+// variable declaration
 	$username = "";
 	$email    = "";
 	$errors = array(); 
 	$_SESSION['success'] = "";
 
 	// connect to database
-	$db = mysqli_connect('localhost', 'root', '', 'X33577055');*/
-require_once "config.php";
+	$db = mysqli_connect('localhost', 'root', '', 'X33577055'); 
 
-$username = "";
+// Check connection
+if($db === false){
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+
+    $username = "";
 	$email    = "";
 	$errors = array(); 
-	$_SESSION['success'] = "";
+	$_SESSION['success'] = "";  
+
 //---//
 
 	// REGISTER USER
