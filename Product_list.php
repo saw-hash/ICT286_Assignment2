@@ -1,93 +1,76 @@
 <!DOCTYPE html>
 <html>
-<head> 
-<title> Product</title> 
+<head><title> table</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="style_product.css">
+     
+</head>
+
+
     
     <script>
-function table() {
     
-  var x = document.getElementById("myTable");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-   x.style.display = "none";
-  }
-}
-</script>
-  </head>
-
-<body>
+        $(document).ready(function () {           
+    $("#btnSubmit").click(function (e) { 
+      e.preventDefault();
+        
+      var username = $("#username").val();
   
-    <h1> Product </h1>
-  
-<?php include('config.php'); ?>
+      // check if the input is valid using a 'valid' property
+      if (username.length===0)
+      { $("#error").text("Please entry name");
+          }
+      else
+        { $("#error").text("");
+             $.ajax({
+                type: 'POST',
+                url: 'l10_e3.php',
+                data:{ username: username } ,
+                success: function (response) {
+                  $('#display').html(response);
+                },
+              });
+        }
  
+        });     
+         
+            ///qty
+        $('#qty').keypress(function(){
+            console.log("hi");
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if(keycode == '13'){
 
-  <?php
-    // validate input
-/*//validate FirstName
-if ((isset($_REQUEST['fname'])) && (empty($_REQUEST['fname'])))
-{  die("Please type firstname");   }
+                var qty = $(this).val();
 
-//validate Lastname
-if ((isset($_REQUEST['lname'])) && (empty($_REQUEST['lname'])))
-{  die("Please type Lastname");  }    
+                var price =  $(this).closest('td').text();
+                console.log(qty);
+                console.log(price);
+                //var fee =  $(this).closest('td').next('td').next('td');
+            }
 
-//validate Unit1
-if ((isset($_REQUEST['Unit1'])) && (empty($_REQUEST['Unit1'])))
-{  die("Please type Unit1");   }
-
-//Validate Uni2
-if ((isset($_REQUEST['Unit2'])) && (empty($_REQUEST['Unit2'])))
-{  die("Please type Unit2");   }
-
-//Validate Unit3
-if ((isset($_REQUEST['Unit3'])) && (empty($_REQUEST['Unit3'])))
-{  die("Please type Unit3");   }
-
-//Validate Unit4
-if ((isset($_REQUEST['Unit4'])) && (empty($_REQUEST['Unit4'])))
-{  die("Please type Unit4");   }   
- */   
+       });
+        }); 
+  </script> 
     
     
-//user inputs 
-/*
-$FirstName = mysqli_real_escape_string($conn,$_REQUEST['fname']);
     
-$LastName = mysqli_real_escape_string($conn,$_REQUEST['lname']);
-  
-$Unit1 = mysqli_real_escape_string($conn,$_REQUEST['Unit1']);
-$Unit2 = mysqli_real_escape_string($conn,$_REQUEST['Unit2']);
-$Unit3 = mysqli_real_escape_string($conn,$_REQUEST['Unit3']);
-$Unit4 = mysqli_real_escape_string($conn,$_REQUEST['Unit4']);
+  <body>  
+    <?php include('config.php'); ?>
 
-$sql_insert = "INSERT INTO Student (FirstName, LastName, Unit1, Unit2, Unit3, Unit4) 
-VALUES ('$FirstName', '$LastName', '$Unit1', '$Unit2', '$Unit3', '$Unit4')";
-    
-if(mysqli_query($conn, $sql_insert)){
-    echo "Records added successfully.";
-} else {
-    echo "ERROR: could not be able to execute $sql_insert. " . mysqli_error($conn);
-}
-  
-  */   ?>
-    
-  <?php
- 
-echo "<hr>"."<h2> Product Table </h2>";
- ?>   
-    
-  <!--search within the same page-->  
+      
+      
+      <!-- search field -->
+   
+      <!--search within the same page-->  
     <div>
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
     <input type="text" name="search_input" id="search_input">
 <input type="submit" name="search" id="search" value="Search"/>
      </form>   </div> 
-    
-    
-<!-- search field -->
-    
+      <br>
+      
 <?php
     if(isset($_POST['search'])) {
      
@@ -105,9 +88,9 @@ echo "<hr>"."<h2> Product Table </h2>";
     
     
     
-   echo "<table id='search' border='0'>
+   echo "<table class='table' id='search' border='0'>
     
-    <tr>
+    <thead>
     <th>ProductID</th>
     <th>ProductName</th>
     <th>ProductType</th>
@@ -115,19 +98,22 @@ echo "<hr>"."<h2> Product Table </h2>";
     <th>ProductDescription</th>
     <th>ProductImage</th>
     <th>ProductPrice</th>
-    </tr>";
+    </thead> ";
           
   while($row = $query_run->fetch_assoc()) {
  //  while($row = mysqli_fetch_array($query_run))  {
+      echo "<tbody>";
       echo "<tr>";
-      echo "<td>" . $row['ProductID'] . "</td>";
-      echo "<td>" . $row['ProductName'] . "</td>";
-      echo "<td>" . $row['ProductType'] . "</td>";
-      echo "<td>" . $row['ProductBrand'] . "</td>";
-      echo "<td>" . $row['ProductDescription'] . "</td>";
-      echo "<td>" . $row['ProductImage'] . "</td>";
-      echo "<td>" . "$" . $row['ProductPrice'] . "</td>";
+      echo "<td data-label='ProductID'>" . $row['ProductID'] . "</td>";
+      echo "<td data-label='ProductName'>" . $row['ProductName'] . "</td>";
+      echo "<td data-label='ProductType'>" . $row['ProductType'] . "</td>";
+      echo "<td data-label='ProductBrand'>" . $row['ProductBrand'] . "</td>";
+      echo "<td data-label='ProductDescription'>" . $row['ProductDescription'] . "</td>";
+      echo "<td data-label='ProductImage'>" . $row['ProductImage'] . "</td>";
+      echo "<td data-label='ProductPrice'>" . "$" . $row['ProductPrice'] . "</td>";
     echo "</tr>";
+      
+    echo "</tbody>";
   }
     
 } else {
@@ -136,8 +122,9 @@ echo "<hr>"."<h2> Product Table </h2>";
     // close connection
    mysqli_close($conn);
     ?>
-
-   
+    
+      
+       
 </body>
 </html>
 
