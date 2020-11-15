@@ -32,6 +32,8 @@ if($db === false){
 		$password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
 
 		// form validation: ensure that the form is correctly filled
+        
+        
 		if (empty($username)) { array_push($errors, "Username is required"); }
 		if (empty($email)) { array_push($errors, "Email is required"); }
 		if (empty($password_1)) { array_push($errors, "Password is required"); }
@@ -56,13 +58,20 @@ if($db === false){
 
 	// ... 
 
+
+
+
+
+//...
 	// LOGIN USER
 	if (isset($_POST['login_user'])) {
 		$username = mysqli_real_escape_string($db, $_POST['username']);
 		$password = mysqli_real_escape_string($db, $_POST['password']);
 
 		if (empty($username)) {
-			array_push($errors, "Username is required");
+			//array_push($errors, "Username is required");
+            
+        $username_err = "user name is required";
 		}
 		if (empty($password)) {
 			array_push($errors, "Password is required");
