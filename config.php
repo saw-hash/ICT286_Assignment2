@@ -1,3 +1,4 @@
+
 <?php
 /* Database credentials */
     $host = "localhost";
