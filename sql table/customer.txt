@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS `customer`;
+CREATE TABLE IF NOT EXISTS `customer` (
+  `custname` varchar(100) NOT NULL,
+  `lastname` varchar(100) NOT NULL,
+  `phone` bigint NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `country` varchar(100) NOT NULL,
+  `subject` text NOT NULL,
+  `custID` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`custID`),
+  UNIQUE KEY `custname` (`custname`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+COMMIT;
+
+INSERT INTO customer (custname, lastname, email, phone, country, subject) 
+VALUES ('john', 'kris', 'john.kris@gmail.com', '12345678', 'Singapore', 'It is an interesting site');
