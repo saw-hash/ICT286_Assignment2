@@ -10,12 +10,12 @@ $(document).ready(function() {
      rules: {
          username: {
              required: true,
-             minlength: 5
+             
          },
          
         custname: {
              required: true,
-             minlength: 5
+             
          },
          
          email: {
@@ -54,7 +54,7 @@ $(document).ready(function() {
      messages:{
          username: {
              required: "Name is required...",
-             minlength: "enter number and character eg.user1",
+             
          },
          
             custname: {
