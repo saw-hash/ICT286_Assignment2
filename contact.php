@@ -1,3 +1,30 @@
+<?php   
+    include ('config.php'); //conn 
+ 
+// Escape user inputs for security
+$custname = mysqli_real_escape_string($conn, $_REQUEST['custname']);
+$lastname = mysqli_real_escape_string($conn, $_REQUEST['lastname']);
+$phone = mysqli_real_escape_string($conn, $_REQUEST['phone']);
+$email = mysqli_real_escape_string($conn, $_REQUEST['email']);
+$country = mysqli_real_escape_string($conn, $_REQUEST['country']);
+$subject = mysqli_real_escape_string($conn, $_REQUEST['subject']);
+        
+        
+// Attempt insert query execution
+$sql = "INSERT INTO customer (custname, lastname, phone, email, country, subject) VALUES ('$custname', '$lastname', '$phone', '$email','$country', '$subject')";
+if(mysqli_query($conn, $sql)){
+    echo "Records added successfully.";
+} else{
+    echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+}
+ 
+// Close connection
+mysqli_close($conn);
+?>
+        
+ 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +44,7 @@
     <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
     <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
         
-        <script type="text/javascript" src="js/login_reg.js"> </script>
+        <script type="text/javascript" src="js/login_reg1.js"> </script>
 </head>
 <body>
     <div class="header">
@@ -60,24 +87,24 @@
         <div class="column2">
    
             
-            
-          <form id="myform" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST"method="post">
+          <form id="myform" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+              
             <label for="custname">UserName</label>
             <input type="text" id="custname" name="custname" placeholder="Your name..">
               
-              <br><br>
+              <br>
             <label for="lname">Last Name (optional)</label>         
             <input type="text" id="lname" name="lastname" placeholder="Your last name..">
               
-              <br> <br>
+              <br>
             <label for="phone">Phone</label>
             <input type="number" id="phone" name="phone" placeholder="your phone number..">
              
-            <br> <br>
+            <br> 
             <label for="phone">Email</label>
             <input type="email" id="email" name="email" placeholder="your address..">
               
-              <br><br>
+              <br>
             <label for="country">Country</label>
             <select id="country" name="country">
               <option value="australia">Singapore</option>
@@ -89,11 +116,13 @@
             <label for="subject">Subject</label>
             <textarea id="subject" name="subject" placeholder="Write something.." style="height:170px"></textarea>
               <br><br>
-            <input name="contact_us" type="submit" value="Submit">
+            <input name="contact_us" type="submit" name="submit" value="Submit">
           </form>
+        
         </div>
       </div>
     </div>
+    
     <!-- Footer -->
     <div class="footer">
         <div class="container">
